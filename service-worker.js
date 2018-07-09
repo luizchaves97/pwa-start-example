@@ -1,23 +1,20 @@
 let cacheName = 'notes-son-v.1.0.0';
-let filesToCache = [
-    './',
-    'index.html',
-    'css/colors.css',
-    'css/style.css',
-    'js/array.observe.polyfill.js',
-    'js/object.observe.polyfill.js',
-    'js/scripts.js'
-];
 
 self.addEventListener('install', function (e) {
     console.log('[ServiceWorker] Installer');
-    e.waitUntil(
-        caches.open(cacheName).then(function(cache) {
-            console.log('[ServiceWorker] Caching app shell');
-            return cache.addAll(filesToCache);
-        })
-    );
+    e.waitUntil(preCache());
 });
+
+function preCache() {
+    return caches.open(cacheName).then(function (cache) {
+        return cache.addAll([
+            '/',
+            'css/colors.css',
+            'css/style.css',
+            'js/scripts.js'
+        ]);
+    });
+}
 
 self.addEventListener('activate', function (e) {
     console.log('[ServiceWorker] Activate');
@@ -33,11 +30,39 @@ self.addEventListener('activate', function (e) {
     );
 });
 
-self.addEventListener('fetch', function (e) {
-    console.log('[ServiceWorker] Fetch', e.request.url);
-    e.respondWith(
-        caches.match(e.request).then(function(response) {
-            return response || fetch(e.request);
-        })
-    );
+function addToCache(cacheName, request, response) {
+  caches.open(cacheName)
+    .then(function(cache){ cache.put(request, response)});
+}
+
+self.addEventListener('fetch', function(e) {
+	var request = e.request,
+      acceptHeader = request.headers.get('Accept');
+
+   if (acceptHeader.indexOf('text/html') !== -1) {
+   	e.respondWith(
+      	fetch(request)
+     		.then(function(response){
+       		if (response.ok) 
+         		addToCache(cacheName, request, response.clone());
+       		return response;
+     		})
+   		.catch( () => {
+     			return caches.match(request).then( response => { 
+         		return response; 
+     			})
+   		})
+    	);
+  	}else if (request.url.indexOf('localhost') !== -1 && (request.url.indexOf('.js') !== -1 || request.url.indexOf('.css') !== -1)) {
+    	e.respondWith(
+      	caches.match(request)
+     		.then(function(response){ 
+     			var fetchPromise = fetch(e.request).then(function(networkResponse) {
+     				addToCache(cacheName, request, networkResponse.clone());
+	          	return networkResponse;
+	        	})
+          	return response || fetchPromise;
+   		})
+    	);
+  	}
 });
