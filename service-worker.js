@@ -55,7 +55,7 @@ self.addEventListener('fetch', (e) => {
      			})
    		})
     	);
-  	}else if (request.url.indexOf('localhost') !== -1 && (request.url.indexOf('.js') !== -1 || request.url.indexOf('.css') !== -1)) {
+  	}else if (request.url.indexOf('luizchaves97.github.io') !== -1 && (request.url.indexOf('.js') !== -1 || request.url.indexOf('.css') !== -1)) {
     	e.respondWith(
       	caches.match(request)
      		.then( response => {
