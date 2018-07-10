@@ -2,7 +2,7 @@
 let notes = window.localStorage.getItem('notes') || '{"data": []}';
 notes = JSON.parse(notes);
 
-/*let updateList = function () {
+let updateList = function () {
     Array.observe(notes.data, function (changes) {
        let index = null;
        let value = "";
@@ -40,7 +40,7 @@ notes = JSON.parse(notes);
 
         window.localStorage.setItem('notes', JSON.stringify(notes));
     });
-}*/
+}
 
 let createNote = function () {
     let input = document.querySelector('#form-add-note input[type="text"]');
@@ -50,7 +50,7 @@ let createNote = function () {
     input.value = "";
 }
 
-/*updateList();*/
+updateList();
 
 document.addEventListener('DOMContentLoaded', function (event) {
    let listOfNotes = document.getElementById('notes');
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 document.addEventListener('click', function (e) {
     let notesTag = document.getElementById('notes');
     if(e.target.parentElement === notesTag){
-        if(confirm('Remover esta nota? ')){
+        if(confirm('Remove this note?')){
             let listOfNotes = document.querySelectorAll('#notes li');
             listOfNotes.forEach(function (item, index) {
                if(e.target === item){

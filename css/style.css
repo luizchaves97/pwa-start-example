@@ -1,7 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-body{
-    padding: 0px !important;
-}
 #toggle-offline{
     height: 0;
     position: fixed;
@@ -63,7 +60,7 @@ body{
 body{
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    padding: 20px;
+    padding: 0px;
 }
 
 h1, p{
@@ -71,6 +68,7 @@ h1, p{
 }
 
 h1{
+    text-align:center;
     font-size: 2.8em;
 }
 p{
@@ -83,18 +81,21 @@ input{
 }
 
 .container{
-    width:100%;
+    width: 500px;
     margin: 0 auto;
     padding: 0px 20px;
 }
-
 .row{
     display: flex;
 }
-
 .col-1{
     flex-grow: 1;
 }
 .col-2{
     flex-grow: 2;
+}
+@media screen and (max-width: 768px){
+    .container{
+        width: 100%;
+    }
 }

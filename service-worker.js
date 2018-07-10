@@ -1,26 +1,33 @@
-let cacheName = 'notes-son-v.1.0.0';
+let cacheName = 'pwa-v.1.0.0';
 
-self.addEventListener('install', function (e) {
-    console.log('[ServiceWorker] Installer');
-    e.waitUntil(preCache());
-});
+function addToCache(cacheName, request, response) {
+  caches.open(cacheName)
+    .then(cache => { cache.put(request, response)});
+}
 
 function preCache() {
-    return caches.open(cacheName).then(function (cache) {
+    return caches.open(cacheName).then(cache => {
         return cache.addAll([
             '/',
             'css/colors.css',
             'css/style.css',
+            'js/array.observe.polyfill.js',
+            'js/object.observe.polyfill.js',
             'js/scripts.js'
         ]);
     });
 }
 
-self.addEventListener('activate', function (e) {
+self.addEventListener('install', (e) => {
+    console.log('[ServiceWorker] Installer');
+    e.waitUntil(preCache());
+});
+
+self.addEventListener('activate', (e) => {
     console.log('[ServiceWorker] Activate');
     e.waitUntil(
-        caches.keys().then(function (keyList) {
-            return Promise.all(keyList.map(function (key) {
+        caches.keys().then( keyList => {
+            return Promise.all(keyList.map( key => {
                 if(key !== cacheName){
                     console.log('[ServiceWorker] Removing old cache');
                     return caches.delete(key);
@@ -30,19 +37,14 @@ self.addEventListener('activate', function (e) {
     );
 });
 
-function addToCache(cacheName, request, response) {
-  caches.open(cacheName)
-    .then(function(cache){ cache.put(request, response)});
-}
-
-self.addEventListener('fetch', function(e) {
-	var request = e.request,
+self.addEventListener('fetch', (e) => {
+	let request = e.request,
       acceptHeader = request.headers.get('Accept');
 
    if (acceptHeader.indexOf('text/html') !== -1) {
    	e.respondWith(
       	fetch(request)
-     		.then(function(response){
+     		.then( response => {
        		if (response.ok) 
          		addToCache(cacheName, request, response.clone());
        		return response;
@@ -56,8 +58,8 @@ self.addEventListener('fetch', function(e) {
   	}else if (request.url.indexOf('localhost') !== -1 && (request.url.indexOf('.js') !== -1 || request.url.indexOf('.css') !== -1)) {
     	e.respondWith(
       	caches.match(request)
-     		.then(function(response){ 
-     			var fetchPromise = fetch(e.request).then(function(networkResponse) {
+     		.then( response => {
+     			let fetchPromise = fetch(e.request).then( networkResponse  => {
      				addToCache(cacheName, request, networkResponse.clone());
 	          	return networkResponse;
 	        	})
