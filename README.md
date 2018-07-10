@@ -12,8 +12,7 @@ The basic example is an application that adds notes. So when you clone the proje
 
     git clone https://github.com/luizchaves97/pwa-start-example.git
 
-
-
+### Or [live demo](https://luizchaves97.github.io/pwa-start-example/).
 
 ## Web App Manifest
 
@@ -64,8 +63,6 @@ In our example, the **manifest.json** looks like this:
 	  "theme_color": "#607d8b"
 	}
 
-
-
 ## Service Worker
 
 > A service worker is a script that your browser runs in the background, separate from a web page, opening the door to features that don't need a web page or user interaction. Today, they already include features like [push notifications](https://developers.google.com/web/updates/2015/03/push-notifications-on-the-open-web) and [background sync](https://developers.google.com/web/updates/2015/12/background-sync). - Google Developer
@@ -98,7 +95,6 @@ Soon after we created two functions that will help us during the development of 
 **addToCache()** is the function to add the files in cache passing as a parameter the name of the cache, the request and the response of the file.
 **preCache()** is the function that will cache some essential files in the installation of the service worker.
 
-
 ### Let's install...
 
     self.addEventListener('install', (e) => {
@@ -106,7 +102,6 @@ Soon after we created two functions that will help us during the development of 
 	    e.waitUntil(preCache());
 	});
 In the installation event, we print in console.log() and then use the function [waitUntil()](https://developer.mozilla.org/en-US/docs/Web/API/ExtendableEvent/waitUntil) to pre cache our main files.
-
 
 ### Let's activate...
 
@@ -124,7 +119,6 @@ In the installation event, we print in console.log() and then use the function [
 	    );
 	});
 In the installation event, we print in console.log() and then use the function waitUntil() to check if it already has some old cache. If it exists, we delete it.
-
 
 ### Let's fetch...
 
@@ -162,7 +156,6 @@ In the installation event, we print in console.log() and then use the function w
 
 In the fetch event, we have two caching rules for different files that will be cached. For **HTML files**, we use the "Network then Cache" rule. For **CSS and JS files**, we use the "Cache then Network" rule. To understand better, [click here](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/).
 
-
 ### The service worker life cycle
 To better understand the life cycle of a serviceworker, we have an image that illustrates this process.
 
@@ -171,17 +164,16 @@ To better understand the life cycle of a serviceworker, we have an image that il
 *Figure 2*. The service worker life cycle (Last updated July 2, 2018)
 
 
-
 ## Results
 After the development, an analysis was made by the [Lighthouse](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk) and we had the following results.
-
-![enter image description here](https://lh3.googleusercontent.com/ii7bALAmRYGOzeQOqJmWd49iS9ltNrpFypG-G4YOdCQjyG5qpG_6hMVUVau9-8YJSVhjacL_VdxY)
+![enter image description here](https://lh3.googleusercontent.com/tqfrOwu4WB3_2v-Tx3KLV8k2NrdyPMUo7s0UPZcKniBs3R0QgPKPJLAE71ADG0ma45irGVUgZy6E)
 
 *Figure 3*. The results of Lighthouse analysis.
 
-We can see that all audits were passed, leaving only HTTP redirection to HTTPS since the test was done on localhost.
+The test was done on the Github server, to see a live demo, [click here](https://luizchaves97.github.io/pwa-start-example/).
 
 ## References
+
 - https://developers.google.com/web/progressive-web-apps/
 - https://developers.google.com/web/fundamentals/primers/service-workers/
 - https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker
