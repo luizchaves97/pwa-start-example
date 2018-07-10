@@ -1,5 +1,6 @@
 # PWA with a 100% Lighthouse score!
 
+
 This repository has a start example for you to have a PWA with a **100%** scoring on the Lighthouse.  To run the example, I recommend that you install the extension [web server for chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb).
 
 The basic example is an application that adds notes. So when you clone the project, you'll see this:
@@ -57,7 +58,7 @@ In our example, the **manifest.json** looks like this:
 	      "type":"image/png"
 	    }
 	  ],
-	  "start_url": "/",
+	  "start_url": "/pwa-start-example/",
 	  "display": "standalone",
 	  "background_color": "#607d8b",
 	  "theme_color": "#607d8b"
