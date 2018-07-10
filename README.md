@@ -5,6 +5,7 @@ This repository has a start example for you to have a PWA with a **100%** scorin
 The basic example is an application that adds notes. So when you clone the project, you'll see this:
 
 ![enter image description here](https://lh3.googleusercontent.com/VBfIYvlVGnmz74USu_XU7Xh-iAIcrf9HEBpqIZGi4YvTti_Yxq851tD-Z1_O2A5GzkFj96MLgeXf)
+
 *Figure 1*. The basic example is an application that adds notes 
 
 ### To clone the project it's just:
@@ -159,6 +160,7 @@ In the fetch event, we have two caching rules for different files that will be c
 To better understand the life cycle of a serviceworker, we have an image that illustrates this process.
 
 ![enter image description here](https://developers.google.com/web/fundamentals/primers/service-workers/images/sw-lifecycle.png)
+
 *Figure 2*. The service worker life cycle (Last updated July 2, 2018)
 
 
@@ -166,6 +168,7 @@ To better understand the life cycle of a serviceworker, we have an image that il
 After the development, an analysis was made by the [Lighthouse](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk) and we had the following results.
 
 ![enter image description here](https://lh3.googleusercontent.com/ii7bALAmRYGOzeQOqJmWd49iS9ltNrpFypG-G4YOdCQjyG5qpG_6hMVUVau9-8YJSVhjacL_VdxY)
+
 *Figure 3*. The results of Lighthouse analysis.
 
 We can see that all audits were passed, leaving only HTTP redirection to HTTPS since the test was done on localhost.
